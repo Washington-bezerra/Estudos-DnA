@@ -7,8 +7,4 @@ import org.springframework.stereotype.Repository
 
 @Repository
 interface PlayerRepository: JpaRepository<Player, Long> {
-
-    //@Query("SELECT * FROM Player")
-    //fun finPlayerByCountry(): List<Player>
-
 }

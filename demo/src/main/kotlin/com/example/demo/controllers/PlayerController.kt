@@ -32,6 +32,7 @@ class PlayerController {
 
     @PostMapping
     fun create(@RequestBody createPlayerRequest: CreatePlayerRequest): Player {
+
         var player: Player = playerMapper.map(createPlayerRequest)
         return repository.save(player)
     }

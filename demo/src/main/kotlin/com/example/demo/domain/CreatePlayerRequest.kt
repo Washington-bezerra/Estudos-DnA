@@ -1,13 +1,13 @@
 package com.example.demo.domain
 
 import org.jetbrains.annotations.NotNull
+import javax.validation.constraints.NotEmpty
 
 class CreatePlayerRequest (
 
-    @NotNull
-    val name: String,
-    @NotNull
-    val club: String,
-    @NotNull
-    val country: String
+    @field:NotNull @field:NotEmpty val name: String,
+
+    @field:NotNull @field:NotEmpty val club: String,
+
+    @field:NotNull @field:NotEmpty val country: String
 )

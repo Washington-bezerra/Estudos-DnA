@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestBody
 import org.springframework.web.bind.annotation.RequestMapping
 import org.springframework.web.bind.annotation.RestController
 import javax.persistence.EntityNotFoundException
+import javax.validation.Valid
 
 @RestController
 @RequestMapping("/player")
@@ -31,7 +32,7 @@ class PlayerController {
     }
 
     @PostMapping
-    fun create(@RequestBody createPlayerRequest: CreatePlayerRequest): Player {
+    fun create(@RequestBody @Valid createPlayerRequest: CreatePlayerRequest): Player {
 
         var player: Player = playerMapper.map(createPlayerRequest)
         return repository.save(player)

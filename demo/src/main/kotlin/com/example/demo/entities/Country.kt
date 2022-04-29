@@ -11,6 +11,15 @@ import javax.persistence.*
 class Country (
 
     @Column
+    @Id
+    @GeneratedValue(generator = "UUID")
+    @GenericGenerator(
+        name = "UUID",
+        strategy = "org.hibernate.id.UUIDGenerator",
+    )
+    var id: UUID? = null,
+
+    @Column
     var name: String,
 
     @Column
@@ -22,16 +31,6 @@ class Country (
         mappedBy = "country"
     )
     @JsonManagedReference
-    var players: List<Player>?
+    var players: List<Player>? = null
 
-){
-
-    @Column
-    @Id
-    @GeneratedValue(generator = "UUID")
-    @GenericGenerator(
-        name = "UUID",
-        strategy = "org.hibernate.id.UUIDGenerator",
-    )
-    private lateinit var id: UUID
-}
+)

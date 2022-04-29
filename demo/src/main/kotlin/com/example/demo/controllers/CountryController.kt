@@ -1,7 +1,9 @@
 package com.example.demo.controllers
 
+import com.example.demo.domain.CreateCountryRequest
 import com.example.demo.entities.Country
 import com.example.demo.entities.Player
+import com.example.demo.mapper.CountryMapper
 import com.example.demo.repositories.CountryRepository
 import com.example.demo.repositories.PlayerRepository
 import org.springframework.beans.factory.annotation.Autowired
@@ -14,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestBody
 import org.springframework.web.bind.annotation.RequestMapping
 import org.springframework.web.bind.annotation.RestController
 import javax.persistence.EntityNotFoundException
+import javax.validation.Valid
 
 @RestController
 @RequestMapping("/country")
@@ -22,7 +25,7 @@ class CountryController {
     @Autowired
     lateinit var repository: CountryRepository
     @Autowired
-    lateinit var repositoryPlayer: PlayerRepository
+    lateinit var countryMapper: CountryMapper
 
     @GetMapping
     fun list(): List<Country>{
@@ -31,7 +34,8 @@ class CountryController {
     }
 
     @PostMapping
-    fun create(@RequestBody country: Country): Country{
+    fun create(@RequestBody @Valid createCountryRequest: CreateCountryRequest): Country{
+        var country: Country = countryMapper.map(createCountryRequest)
         return repository.save(country)
     }
 

@@ -2,13 +2,12 @@ package com.example.demo.mapper
 
 import com.example.demo.domain.CreatePlayerRequest
 import com.example.demo.entities.Player
-import com.example.demo.exception.AlreadyRegistered
+import com.example.demo.exception.AlreadyRegisteredException
 import com.example.demo.repositories.CountryRepository
 import org.springframework.beans.factory.annotation.Autowired
 import com.example.demo.exception.NotFoundException
 import com.example.demo.repositories.PlayerRepository
 import org.springframework.stereotype.Service
-import java.util.Optional
 
 
 @Service
@@ -31,7 +30,7 @@ class PlayerMapper:Mapper<CreatePlayerRequest, Player>{
             country = countryName
             )
         }else{
-            return throw AlreadyRegistered("The player is already registered")
+            return throw AlreadyRegisteredException("The player is already registered")
         }
     }
 

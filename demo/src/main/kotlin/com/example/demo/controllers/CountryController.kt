@@ -2,19 +2,14 @@ package com.example.demo.controllers
 
 import com.example.demo.domain.CreateCountryRequest
 import com.example.demo.entities.Country
-import com.example.demo.entities.Player
+import com.example.demo.exception.BadRequestException
+import com.example.demo.exception.NotFoundException
 import com.example.demo.mapper.CountryMapper
 import com.example.demo.repositories.CountryRepository
-import com.example.demo.repositories.PlayerRepository
 import org.springframework.beans.factory.annotation.Autowired
-import org.springframework.web.bind.annotation.DeleteMapping
-import org.springframework.web.bind.annotation.GetMapping
-import org.springframework.web.bind.annotation.PathVariable
-import org.springframework.web.bind.annotation.PostMapping
-import org.springframework.web.bind.annotation.PutMapping
-import org.springframework.web.bind.annotation.RequestBody
-import org.springframework.web.bind.annotation.RequestMapping
-import org.springframework.web.bind.annotation.RestController
+import org.springframework.web.bind.annotation.*
+import org.springframework.web.client.HttpClientErrorException.BadRequest
+import java.util.*
 import javax.persistence.EntityNotFoundException
 import javax.validation.Valid
 
@@ -52,8 +47,14 @@ class CountryController {
     }
 
     @DeleteMapping("/{id}")
-    fun delete(@PathVariable("id") id:Long){
-        var country = repository.findById(id).orElseThrow{ EntityNotFoundException()}
-        repository.delete(country)
+    fun delete(@PathVariable("id") id:UUID){
+
+        var country = repository.findById(id).orElseThrow{NotFoundException("ID not found")}
+        if(country.players.isNullOrEmpty()){
+            repository.delete(country)
+        }else{
+            return throw BadRequestException("It is not possible to delete a country that has a player(s), " +
+                    "first delete or updete the player(s)")
+        }
     }
 }

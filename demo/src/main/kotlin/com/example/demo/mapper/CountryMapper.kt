@@ -2,7 +2,7 @@ package com.example.demo.mapper
 
 import com.example.demo.domain.CreateCountryRequest
 import com.example.demo.entities.Country
-import com.example.demo.exception.AlreadyRegistered
+import com.example.demo.exception.AlreadyRegisteredException
 import com.example.demo.repositories.CountryRepository
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Service
@@ -23,7 +23,7 @@ class CountryMapper:Mapper<CreateCountryRequest, Country>{
                 continent = t.continent
             )
         }else{
-            throw AlreadyRegistered("The country is already registered")
+            throw AlreadyRegisteredException("The country is already registered")
         }
 
 

@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.PutMapping
 import org.springframework.web.bind.annotation.RequestBody
 import org.springframework.web.bind.annotation.RequestMapping
 import org.springframework.web.bind.annotation.RestController
+import java.util.UUID
 import javax.persistence.EntityNotFoundException
 import javax.validation.Valid
 
@@ -52,8 +53,8 @@ class PlayerController {
     }
 
     @DeleteMapping("/{id}")
-    fun delete(@PathVariable("id") id:Long){
-        var player = repository.findById(id).orElseThrow{ EntityNotFoundException()}
+    fun delete(@PathVariable("id") id:UUID){
+        var player = repository.findByid(id).orElseThrow{ EntityNotFoundException()}
         repository.delete(player)
     }
 

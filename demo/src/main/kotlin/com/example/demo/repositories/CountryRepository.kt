@@ -11,4 +11,6 @@ interface CountryRepository: JpaRepository<Country, Long>{
 
     fun findByName(name: String): Optional<Country>
 
+    fun findById(id: UUID): Optional<Country>
+
 }

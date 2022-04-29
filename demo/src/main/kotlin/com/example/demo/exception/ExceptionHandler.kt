@@ -21,4 +21,28 @@ class ExceptionHandler {
             path = request.servletPath
         )
     }
+
+    @ExceptionHandler(AlreadyRegisteredException::class)
+    @ResponseStatus(HttpStatus.CONFLICT)
+    fun handleAlreadyRegisteredException(expection: AlreadyRegisteredException, request: HttpServletRequest) : ErrorView{
+
+        return ErrorView(
+            status = HttpStatus.CONFLICT.value(),
+            error = HttpStatus.CONFLICT.name,
+            message = expection.message,
+            path = request.servletPath
+        )
+    }
+
+    @ExceptionHandler(BadRequestException::class)
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    fun handleBadRequest(expection: BadRequestException, request: HttpServletRequest) : ErrorView{
+
+        return ErrorView(
+            status = HttpStatus.BAD_REQUEST.value(),
+            error = HttpStatus.BAD_REQUEST.name,
+            message = expection.message,
+            path = request.servletPath
+        )
+    }
 }
